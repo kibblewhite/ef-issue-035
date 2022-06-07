@@ -19,7 +19,7 @@ public class BookingsDatabaseContext : DbContext
         optionsBuilder.EnableSensitiveDataLogging();
         optionsBuilder.LogTo(Console.WriteLine);
 
-        // All these ignore statements are put in place, as the all the to suppress the other messages are not relevant to highlight the issues at hand
+        // All these ignore statements are put in place, to suppress the other messages, as they are not relevant to highlight the issues at hand
         // Only these message types to show during migration commands -> RelationalEventId.ModelValidationKeyDefaultValueWarning
         optionsBuilder.ConfigureWarnings(warnings => warnings
             .Ignore(CoreEventId.ContextDisposed)
@@ -93,14 +93,14 @@ public class BookingsDatabaseContext : DbContext
         //    .HasIndex(x => x.CustomerBookingOwnershipId)
         //    .IsUnique();
 
-        // 'The property 'Booking.CustomerBookingOwnershipId' cannot be marked as nullable/optional because it has been included in the key {'CustomerBookingOwnershipId'}.'
+        // The property 'Booking.CustomerBookingOwnershipId' cannot be marked as nullable/optional because it has been included in the key {'CustomerBookingOwnershipId'}.
         //modelBuilder.Entity<Booking>()
         //    .Property(x => x.CustomerBookingOwnershipId)
         //    .IsRequired(false);
 
-        modelBuilder.Entity<Booking>()
-            .Property(x => x.CustomerBookingOwnershipId)
-            .HasDefaultValue(Guid.Empty);
+        //modelBuilder.Entity<Booking>()
+        //    .Property(x => x.CustomerBookingOwnershipId)
+        //    .HasDefaultValue(Guid.Empty);
         // -> ^^^ Adding the ".HasDefaultValue(Guid.Empty)" above resolved the issue...
         // System.InvalidOperationException: 'Unable to track an entity of type 'Booking' because alternate key property 'CustomerBookingOwnershipId' is null.
         // If the alternate key is not used in a relationship, then consider using a unique index instead. Unique indexes may contain nulls, while alternate keys may not.'

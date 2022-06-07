@@ -18,7 +18,7 @@ public class Booking
     public virtual CustomerBookingDetail? CustomerBookingOwnership { get; protected set; }
     public Guid CustomerBookingOwnershipId { get; protected set; }
 
-    public Booking() { CustomerBookingOwnershipId = Guid.Empty; }
+    public Booking() { }
 
     public void AssignBookingOwnership(CustomerBookingDetail customerBookingDetail) => CustomerBookingOwnership = customerBookingDetail;
 }
