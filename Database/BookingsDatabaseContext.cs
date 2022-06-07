@@ -98,9 +98,9 @@ public class BookingsDatabaseContext : DbContext
         //    .Property(x => x.CustomerBookingOwnershipId)
         //    .IsRequired(false);
 
-        //modelBuilder.Entity<Booking>()
-        //    .Property(x => x.CustomerBookingOwnershipId)
-        //    .HasDefaultValue(Guid.Empty);
+        modelBuilder.Entity<Booking>()
+            .Property(x => x.CustomerBookingOwnershipId)
+            .HasDefaultValue(Guid.Empty);
         // -> ^^^ Adding the ".HasDefaultValue(Guid.Empty)" above resolved the issue...
         // System.InvalidOperationException: 'Unable to track an entity of type 'Booking' because alternate key property 'CustomerBookingOwnershipId' is null.
         // If the alternate key is not used in a relationship, then consider using a unique index instead. Unique indexes may contain nulls, while alternate keys may not.'
