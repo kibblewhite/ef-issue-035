@@ -41,6 +41,24 @@ PostgresException: 23503: insert or update on table "CustomerBookingDetails" vio
 DETAIL: Key (Id)=(b163b697-6525-4423-9fde-1e7522f4da08) is not present in table "Bookings".
 ```
 
+## What I would like
+
+Non-Composite/Compound Nullable Relations.
+
+To be able to create a one-to-one relationship between tables, and have the relational key accept a null.
+
+If you run the appilcation and then visit your postgresql db then run the following SQL statements on the tables, you can achieve exactly what I'm looking for:
+
+```sql
+ALTER TABLE "Bookings"
+    ALTER COLUMN "CustomerBookingOwnershipId" TYPE UUID,
+    ALTER COLUMN "CustomerBookingOwnershipId" DROP NOT NULL,
+    ALTER COLUMN "CustomerBookingOwnershipId" SET DEFAULT NULL;
+
+ALTER TABLE "Bookings"
+    ADD CONSTRAINT "FK_Bookings_CustomerBookingDetails_CustomerBookingOwnershipId" FOREIGN KEY ("CustomerBookingOwnershipId") REFERENCES "CustomerBookingDetails" ("Id") ON UPDATE NO ACTION ON DELETE NO ACTION;
+```
+
 ### NuGet Packages
 
 The nuget packages in use are:
