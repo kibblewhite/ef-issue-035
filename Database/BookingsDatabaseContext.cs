@@ -101,7 +101,7 @@ public class BookingsDatabaseContext : DbContext
         modelBuilder.Entity<Booking>()
             .Property(x => x.CustomerBookingOwnershipId)
             .HasDefaultValue(Guid.Empty);
-        // -> ^^^ Adding the ".HasDefaultValue(Guid.Empty)" above resolved the issue...
+        // -> ^^^ Adding the ".HasDefaultValue(Guid.Empty)" creates the warning: RelationalEventId.ModelValidationKeyDefaultValueWarning
         // System.InvalidOperationException: 'Unable to track an entity of type 'Booking' because alternate key property 'CustomerBookingOwnershipId' is null.
         // If the alternate key is not used in a relationship, then consider using a unique index instead. Unique indexes may contain nulls, while alternate keys may not.'
 
