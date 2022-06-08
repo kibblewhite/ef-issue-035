@@ -23,6 +23,13 @@ internal class Program
         context.CustomerBookingDetails.Add(customer_booking_detail);
         context.SaveChanges();
 
+        // When creating another set of details, the old context get's over written...
+        CustomerBookingDetail another_customer_booking_details = new(booking);
+        booking.AssignBookingOwnership(another_customer_booking_details);
+
+        context.CustomerBookingDetails.Add(another_customer_booking_details);
+        context.SaveChanges();
+
         Console.WriteLine("Done.");
         Console.ReadLine();
     }
